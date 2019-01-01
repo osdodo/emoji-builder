@@ -1,0 +1,20 @@
+page {
+    background-color: #FAFBFC;
+}
+
+button {
+    position: unset;
+    margin: unset;
+    padding: unset;
+    font-size: unset;
+    text-decoration: unset;
+    line-height: unset;
+    border-radius: unset;
+    overflow: unset;
+    color: unset;
+    background: unset;
+}
+  
+button::after {
+    display: none;
+}

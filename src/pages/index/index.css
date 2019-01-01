@@ -1,0 +1,52 @@
+.index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.canvas-container {
+    position: relative;
+    width: 200Px; 
+    height: 200Px;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.loading {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}
+
+.save {
+    position: absolute;
+    right: 0;
+    top: 30px;
+    width: 113px;
+    height: 54px;
+    line-height: 54px;
+    border-radius: 0;
+    border-top-left-radius: 27px;
+    border-bottom-left-radius: 27px; 
+    text-align: center;
+    font-size: 30px;
+    color: #999999;
+    box-shadow: 5px 5px 15px rgb(230, 228, 228);
+}
+
+.bottom-btn {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #585353;
+    font-size: 30px;
+}
