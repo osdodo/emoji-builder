@@ -14,4 +14,4 @@ yarn dev:weapp
 yarn build:weapp
 ```
 
-![qrcode](qrcode.jpeg)
+![qrcode](qrcode.jpg)
