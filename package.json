@@ -20,7 +20,7 @@
   "author": "osdodo",
   "license": "MIT",
   "dependencies": {
-    "@tarojs/async-await": "^1.2.0",
+    "@tarojs/async-await": "^1.2.12",
     "@tarojs/components": "^1.2.0",
     "@tarojs/redux": "^1.2.0",
     "@tarojs/redux-h5": "^1.2.0",
@@ -39,10 +39,10 @@
     "taro-ui": "^1.5.3"
   },
   "devDependencies": {
-    "@tarojs/plugin-babel": "^1.2.0",
+    "@tarojs/plugin-babel": "^1.2.12",
     "@tarojs/plugin-csso": "^1.2.0",
     "@tarojs/plugin-sass": "^1.2.2",
-    "@tarojs/plugin-uglifyjs": "^1.2.0",
+    "@tarojs/plugin-uglifyjs": "^1.2.12",
     "@tarojs/webpack-runner": "^1.2.0",
     "@types/react": "^16.4.8",
     "@types/webpack-env": "^1.13.6",

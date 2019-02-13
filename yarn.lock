@@ -78,9 +78,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@tarojs/async-await@^1.2.0":
-  version "1.2.2"
-  resolved "http://registry.npm.taobao.org/@tarojs/async-await/download/@tarojs/async-await-1.2.2.tgz#3d5a0ccb8e52be1d8e429dbc4aa11a0171fc263c"
+"@tarojs/async-await@^1.2.12":
+  version "1.2.12"
+  resolved "http://registry.npm.taobao.org/@tarojs/async-await/download/@tarojs/async-await-1.2.12.tgz#a70d85159ed77b9f0093fc6e4e27caf84ad8a383"
   dependencies:
     promise-polyfill "^7.1.2"
     regenerator-runtime "^0.11.1"
@@ -94,9 +94,9 @@
     omit.js "^1.0.0"
     weui "^1.1.2"
 
-"@tarojs/plugin-babel@^1.2.0":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/plugin-babel/download/@tarojs/plugin-babel-1.2.1.tgz#9f85add3b32413347dcc9f65a9d93a3470df6ca5"
+"@tarojs/plugin-babel@^1.2.12":
+  version "1.2.12"
+  resolved "http://registry.npm.taobao.org/@tarojs/plugin-babel/download/@tarojs/plugin-babel-1.2.12.tgz#66b498a0b8aa695cd92845070705ef10ab2f2a33"
   dependencies:
     babel-core "^6.26.0"
 
@@ -112,9 +112,9 @@
   dependencies:
     node-sass "^4.8.3"
 
-"@tarojs/plugin-uglifyjs@^1.2.0":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/plugin-uglifyjs/download/@tarojs/plugin-uglifyjs-1.2.1.tgz#2f95a88eb2b4b45547bce4b2ad02a8ac06c2a0d9"
+"@tarojs/plugin-uglifyjs@^1.2.12":
+  version "1.2.12"
+  resolved "http://registry.npm.taobao.org/@tarojs/plugin-uglifyjs/download/@tarojs/plugin-uglifyjs-1.2.12.tgz#64b52194d7ef7f6f4e76d5135c45d4f956c3c1dd"
   dependencies:
     uglify-js "^3.3.24"
 
