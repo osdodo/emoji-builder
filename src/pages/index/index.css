@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .canvas-container {
@@ -36,17 +37,6 @@ canvas {
     text-align: center;
     font-size: 30px;
     color: #999999;
+    font-weight: bold;
     box-shadow: 5px 5px 15px rgb(230, 228, 228);
-}
-
-.bottom-btn {
-    position: absolute;
-    width: 100%;
-    bottom: 10px;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #585353;
-    font-size: 30px;
 }

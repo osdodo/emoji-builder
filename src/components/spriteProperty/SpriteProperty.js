@@ -1,6 +1,5 @@
 import { Component } from '@tarojs/taro'
 import { View, Text, Slider } from '@tarojs/components'
-
 import { connect } from '@tarojs/redux'
 import { transformSprite, closeSpriteSetting } from '../../actions/setting'
 

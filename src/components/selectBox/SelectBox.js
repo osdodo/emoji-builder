@@ -1,12 +1,8 @@
 import { Component } from '@tarojs/taro'
 import { View, ScrollView, Image } from '@tarojs/components'
-
 import { connect } from '@tarojs/redux'
 import { pushSprite, selectedLevelSwitch } from '../../actions/setting'
-
-import {
-    drawImage
-} from '../../utils/wx-tool'
+import { drawImage } from '../../utils/wx-tool'
 
 import './SelectBox.css'
 
@@ -78,7 +74,6 @@ import level_4_18 from '../../images/level4/level_4_18.png'
 import level_4_19 from '../../images/level4/level_4_19.png'
 import level_4_20 from '../../images/level4/level_4_20.png'
 import level_4_21 from '../../images/level4/level_4_21.png'
-
 
 @connect(
     ({ setting: { currentSelectedLevel, level2List, level4List} }) => ({

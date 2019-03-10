@@ -1,12 +1,12 @@
-import { Component } from '@tarojs/taro'
+import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
-
 import { connect } from '@tarojs/redux'
 import { removeSprite, openSpriteSetting } from '../../actions/setting'
 
 import '../../iconfont.css'
 import './LevelSpriteList.css'
 import hint from '../../images/hint.png'
+
 @connect(
     ({ setting }) => setting,
     dispatch => ({
@@ -31,18 +31,18 @@ class LevelSpriteList extends Component {
 
     componentWillMount() {
         try {
-            const value = wx.getStorageSync('hideSettingHint')
-                if (!value) {
-                    this.setState({
-                        showSettingHint: true
-                    })
-                }
+            const value = Taro.getStorageSync('hideSettingHint')
+            if (!value) {
+                this.setState({
+                    showSettingHint: true
+                })
+            }
         } catch (e) { }
     }
 
     onClickHint() {
         try {
-            wx.setStorageSync('hideSettingHint', true)
+            Taro.setStorageSync('hideSettingHint', true)
             this.setState({
                 showSettingHint: false
             })
