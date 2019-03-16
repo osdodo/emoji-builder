@@ -8,7 +8,7 @@ import './Navigation.css'
 import '../../iconfont.css'
 
 @connect(({ navigation }) => navigation, (dispatch) => ({
-    openNavActionSheet() {
+    handleOpenNavActionSheet() {
         dispatch(openNavActionSheet())
     },
 }))
@@ -27,7 +27,7 @@ export default class extends Component {
                         <Text 
                             className='iconfont icon-shezhi' 
                             style='font-size: 22px;' 
-                            onClick={this.props.openNavActionSheet}
+                            onClick={this.props.handleOpenNavActionSheet}
                         >
                         </Text>
                     </View>

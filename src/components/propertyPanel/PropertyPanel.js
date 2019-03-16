@@ -3,7 +3,7 @@ import { View, Text, Slider } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { transformSprite, closeSpriteSetting } from '../../actions/setting'
 
-import './SpriteProperty.css'
+import './PropertyPanel.css'
 import '../../iconfont.css'
 
 @connect(
@@ -12,16 +12,16 @@ import '../../iconfont.css'
         currentSettingSprite
     }),
     dispatch => ({
-        onTransformSprite(sprite) {
+        transformSprite(sprite) {
             dispatch(transformSprite(sprite))
         },
-        onCloseSpriteSetting() {
+        handleCloseSpriteSetting() {
             dispatch(closeSpriteSetting())
         }
     })
 )
 
-class SpriteProperty extends Component {
+export default class extends Component {
 
     onMoveSprite(e) {
         const type = e.target.dataset.type
@@ -46,7 +46,7 @@ class SpriteProperty extends Component {
             default:
                 break
         }
-        this.props.onTransformSprite({
+        this.props.transformSprite({
             ...currentSettingSprite,
             ...point
         })
@@ -55,7 +55,7 @@ class SpriteProperty extends Component {
     onChangeScale(e) {
         const scale = e.detail.value
         const { currentSettingSprite } = this.props
-        this.props.onTransformSprite({
+        this.props.transformSprite({
             ...currentSettingSprite,
             x: Math.round(100 - currentSettingSprite.w * scale / 2),
             y: Math.round(100 - currentSettingSprite.h * scale / 2),
@@ -64,7 +64,7 @@ class SpriteProperty extends Component {
     }
 
     onChangeDegrees(e) {
-        this.props.onTransformSprite({
+        this.props.transformSprite({
             ...this.props.currentSettingSprite,
             degrees: e.detail.value
         })
@@ -84,7 +84,7 @@ class SpriteProperty extends Component {
                 <Text
                     className='iconfont icon-guanbi'
                     style='font-size: 30px;'
-                    onClick={this.props.onCloseSpriteSetting}
+                    onClick={this.props.handleCloseSpriteSetting}
                 >
                 </Text>
                 <Text
@@ -168,13 +168,9 @@ class SpriteProperty extends Component {
                             onClick={this.onMoveSprite}
                         >
                         </Text>
-
                     </View>
                 </View>
-
             </View>
         )
     }
 }
-
-export default SpriteProperty

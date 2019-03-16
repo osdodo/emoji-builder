@@ -1,6 +1,6 @@
 import {
     PUSH_SPRITE,
-    SELECTED_LEVEL_SWITCH,
+    SELECTED_LAYER_SWITCH,
     REMOVE_SPRITE,
     OPEN_SPRITE_SETTING,
     CLOSE_SPRITE_SETTING,
@@ -8,33 +8,33 @@ import {
     UPDATE_COMPLETED,
 } from '../constants/setting'
 
-export const pushSprite = (level, sprite) => {
+export const pushSprite = (layer, sprite) => {
     return {
         type: PUSH_SPRITE,
-        level: level,
+        layer: layer,
         sprite: sprite
     }
 }
 
-export const selectedLevelSwitch = (selectedLevel) => {
+export const selectedLayerSwitch = (selectedLayer) => {
     return {
-        type: SELECTED_LEVEL_SWITCH,
-        selectedLevel: selectedLevel
+        type: SELECTED_LAYER_SWITCH,
+        selectedLayer: selectedLayer
     }
 }
 
-export const removeSprite = (currentOperatingLevel, id) => {
+export const removeSprite = (currentOperatingLayer, id) => {
     return {
         type: REMOVE_SPRITE,
-        currentOperatingLevel: currentOperatingLevel,
+        currentOperatingLayer: currentOperatingLayer,
         id: id
     }
 }
 
-export const openSpriteSetting = (level, id) =>{
+export const openSpriteSetting = (layer, id) =>{
     return {
         type: OPEN_SPRITE_SETTING,
-        level,
+        layer,
         id
     }
 }

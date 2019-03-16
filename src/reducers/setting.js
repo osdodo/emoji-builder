@@ -1,6 +1,6 @@
 import {
     PUSH_SPRITE,
-    SELECTED_LEVEL_SWITCH,
+    SELECTED_LAYER_SWITCH,
     REMOVE_SPRITE,
     OPEN_SPRITE_SETTING,
     CLOSE_SPRITE_SETTING,
@@ -9,27 +9,27 @@ import {
 } from '../constants/setting'
 
 const INITIAL_STATE = {
-    level1List: [],
-    level2List: [],
-    level3List: [],
-    level4List: [],
-    currentSelectedLevel: 1,
-    currentOperatingLevel: 0,
+    layer1List: [],
+    layer2List: [],
+    layer3List: [],
+    layer4List: [],
+    currentSelectedLayer: 1,
+    currentOperatingLayer: 0,
     isSettingProperty: false,
     currentSettingSprite: {},
     isUpdating: false,
 }
 
 const getCurrentSettingSprite = (state, action) => {
-    switch (action.level) {
+    switch (action.layer) {
         case 1:
-            return findSprite(state.level1List, action.id)
+            return findSprite(state.layer1List, action.id)
         case 2:
-            return findSprite(state.level2List, action.id)
+            return findSprite(state.layer2List, action.id)
         case 3:
-            return findSprite(state.level3List, action.id)
+            return findSprite(state.layer3List, action.id)
         case 4:
-            return findSprite(state.level4List, action.id)
+            return findSprite(state.layer4List, action.id)
     }
 }
 
@@ -57,81 +57,81 @@ const updateSpriteList = (spriteList, sprite) => {
 export default function setting(state = INITIAL_STATE, action) {
     switch (action.type) {
         case PUSH_SPRITE:
-            switch (action.level) {
+            switch (action.layer) {
                 case 1:
                     return {
                         ...state,
-                        level1List: [action.sprite],
+                        layer1List: [action.sprite],
                         isUpdating: true,
-                        currentOperatingLevel: 1
+                        currentOperatingLayer: 1
                     }
                 case 2:
                     return {
                         ...state,
-                        level2List: [
-                            ...state.level2List,
+                        layer2List: [
+                            ...state.layer2List,
                             action.sprite
                         ]
                     }
                 case 3:
                     return {
                         ...state,
-                        level3List: [
-                            ...state.level3List,
+                        layer3List: [
+                            ...state.layer3List,
                             action.sprite
                         ]
                     }
                 case 4:
                     return {
                         ...state,
-                        level4List: [
-                            ...state.level4List,
+                        layer4List: [
+                            ...state.layer4List,
                             action.sprite
                         ]
                     }
             }
-        case SELECTED_LEVEL_SWITCH:
+        case SELECTED_LAYER_SWITCH:
             return {
                 ...state,
-                currentSelectedLevel: action.selectedLevel
+                currentSelectedLayer: action.selectedLayer
             }
         case REMOVE_SPRITE:
-            switch (action.currentOperatingLevel) {
+            switch (action.currentOperatingLayer) {
                 case 1:
                     return {
                         ...state,
-                        level1List: state.level1List.filter(item => {
+                        layer1List: state.layer1List.filter(item => {
                             return item.id !== action.id
                         }),
                         isUpdating: true,
-                        currentOperatingLevel: 1
+                        currentOperatingLayer: 1
                     }
                 case 2:
                     return {
                         ...state,
-                        level2List: state.level2List.filter(item => {
+                        layer2List: state.layer2List.filter(item => {
                             return item.id !== action.id
                         }),
                         isUpdating: true,
-                        currentOperatingLevel: 2
+                        currentOperatingLayer: 2
                     }
                 case 3:
                     return {
                         ...state,
-                        level3List: state.level3List.filter(item => {
+                        layer3List: state.layer3List.filter(item => {
                             return item.id !== action.id
                         }),
                         isUpdating: true,
-                        currentOperatingLevel: 3
+                        currentOperatingLayer: 3
                     }
                 case 4:
                     return {
                         ...state,
-                        level4List: state.level4List.filter(item => {
+                        layer4List: state.layer4List.filter(item => {
                             return item.id !== action.id
                         }),
                         isUpdating: true,
-                        currentOperatingLevel: 4
+                        currentOperatingLayer: 4
                     }
             }
         case OPEN_SPRITE_SETTING:
@@ -146,38 +146,38 @@ export default function setting(state = INITIAL_STATE, action) {
                 isSettingProperty: false
             }
         case TRANSFORM_SPRITE:
-            switch (action.sprite.level) {
+            switch (action.sprite.layer) {
                 case 1:
                     return {
                         ...state,
-                        level1List: updateSpriteList(state.level1List, action.sprite),
+                        layer1List: updateSpriteList(state.layer1List, action.sprite),
                         currentSettingSprite: action.sprite,
                         isUpdating: true,
-                        currentOperatingLevel: 1
+                        currentOperatingLayer: 1
                     }
                 case 2:
                     return {
                         ...state,
-                        level2List: updateSpriteList(state.level2List, action.sprite),
+                        layer2List: updateSpriteList(state.layer2List, action.sprite),
                         currentSettingSprite: action.sprite,
                         isUpdating: true,
-                        currentOperatingLevel: 2
+                        currentOperatingLayer: 2
                     }
                 case 3:
                     return {
                         ...state,
-                        level3List: updateSpriteList(state.level3List, action.sprite),
+                        layer3List: updateSpriteList(state.layer3List, action.sprite),
                         currentSettingSprite: action.sprite,
                         isUpdating: true,
-                        currentOperatingLevel: 3
+                        currentOperatingLayer: 3
                     }
                 case 4:
                     return {
                         ...state,
-                        level4List: updateSpriteList(state.level4List, action.sprite),
+                        layer4List: updateSpriteList(state.layer4List, action.sprite),
                         currentSettingSprite: action.sprite,
                         isUpdating: true,
-                        currentOperatingLevel: 4
+                        currentOperatingLayer: 4
                     }
             }
             case UPDATE_COMPLETED:

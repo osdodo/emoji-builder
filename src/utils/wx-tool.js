@@ -54,7 +54,7 @@ export const canvasToTempFilePath = (canvasId) => {
 }
 
 const cleanSaveCanvas = () => {
-    const ctx = wx.createCanvasContext('level_save')
+    const ctx = wx.createCanvasContext('layer_save')
     // ctx.setFillStyle('#ffffff')
     // ctx.fillRect(0, 0, 200, 200)
     ctx.draw()
@@ -64,11 +64,6 @@ export const saveImageToPhotosAlbum = (filePath) => {
     wx.saveImageToPhotosAlbum({
         filePath: filePath,
         success: () => {
-            wx.showToast({
-                title: '😁已保存至手机相册',
-                icon: 'none',
-                duration: 2000
-            })
             cleanSaveCanvas()
         },
         fail: e => {

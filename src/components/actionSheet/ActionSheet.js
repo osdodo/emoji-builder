@@ -7,20 +7,17 @@ import './ActionSheet.css'
 import '../../iconfont.css'
 
 @connect(({ navigation }) => navigation, (dispatch) => ({
-    closeNavActionSheet() {
+    handleClickOverlay() {
         dispatch(closeNavActionSheet())
     },
 }))
 export default class extends Component {
-    handleClickOverlay = (e) => {
-        this.props.closeNavActionSheet()
-    }
     render() {
         const { isOpenedNavActionSheet, statusBarHeight } = this.props
         return (
             <View 
                 className='overlay' 
-                onClick={this.handleClickOverlay} 
+                onClick={this.props.handleClickOverlay} 
                 style={isOpenedNavActionSheet ? '' : 'visibility:hidden;'}
             >
                 <View 

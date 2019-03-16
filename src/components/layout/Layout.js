@@ -8,7 +8,7 @@ export default class extends Component {
     }
     render() {
         return (
-            <View className='page'>
+            <View className='page' id='page'>
                 <Navigation title={this.props.title} />
                 {this.props.children}
             </View>

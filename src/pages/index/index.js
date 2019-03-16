@@ -2,24 +2,23 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Canvas } from '@tarojs/components'
 import { AtActivityIndicator } from 'taro-ui'
 import Layout from '../../components/layout/Layout'
-import SelectBox from '../../components/selectBox/SelectBox'
-import LevelSpriteList from '../../components/levelSpriteList/LevelSpriteList'
-import SpriteProperty from '../../components/spriteProperty/SpriteProperty'
+import Sprites from '../../components/sprites/Sprites'
+import SelectedSprites from '../../components/selectedSprites/SelectedSprites'
+import PropertyPanel from '../../components/propertyPanel/PropertyPanel'
 import { connect } from '@tarojs/redux'
 import { pushSprite, updateCompleted } from '../../actions/setting'
 import { setStatusBarHeight } from '../../actions/navigation'
 import {
-    drawImage, centralizedDraw, asyncCentralizedDraw,
+    centralizedDraw, asyncCentralizedDraw,
     canvasToTempFilePath, saveImageToPhotosAlbum,
 } from '../../utils/wx-tool'
 
 import './index.css'
 import '../../iconfont.css'
-import level_1_04 from '../../images/level1/level_1_04.png'
 
 @connect(({ setting }) => setting,(dispatch) => ({
-    onPushSprite(level, sprite) {
-        dispatch(pushSprite(level, sprite))
+    onPushSprite(layer, sprite) {
+        dispatch(pushSprite(layer, sprite))
     },
     onUpdateCompleted() {
         dispatch(updateCompleted())
@@ -39,21 +38,21 @@ class Index extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.isUpdating) {
-            const { currentOperatingLevel } = nextProps
-            const ctx = wx.createCanvasContext(`level_${currentOperatingLevel}`)
+            const { currentOperatingLayer } = nextProps
+            const ctx = wx.createCanvasContext(`layer_${currentOperatingLayer}`)
             ctx.draw()
-            switch (currentOperatingLevel) {
+            switch (currentOperatingLayer) {
                 case 1:
-                    centralizedDraw(ctx, nextProps.level1List)
+                    centralizedDraw(ctx, nextProps.layer1List)
                     break
                 case 2:
-                    centralizedDraw(ctx, nextProps.level2List)
+                    centralizedDraw(ctx, nextProps.layer2List)
                     break
                 case 3:
-                    centralizedDraw(ctx, nextProps.level3List)
+                    centralizedDraw(ctx, nextProps.layer3List)
                     break
                 case 4:
-                    centralizedDraw(ctx, nextProps.level4List)
+                    centralizedDraw(ctx, nextProps.layer4List)
                     break
                 default:
                     break
@@ -69,20 +68,6 @@ class Index extends Component {
             },
             fail: err => { }
         })
-
-        const timestamp = new Date().getTime()
-        this.props.onPushSprite(1, {
-            id: timestamp,
-            x: 36, y: 36,
-            w: 128, h: 128,
-            path: level_1_04,
-            level: 1,
-            scale: 1,
-            degrees: 0
-        })
-
-        const ctx = wx.createCanvasContext(`level_1`)
-        drawImage(ctx, level_1_04, 36, 36, 128, 128)
     }
 
     componentWillUnmount() { }
@@ -95,14 +80,14 @@ class Index extends Component {
         this.setState({
             showLoading: true
         })
-        const ctx = wx.createCanvasContext('level_save')
+        const ctx = wx.createCanvasContext('layer_save')
         await asyncCentralizedDraw(ctx, [
-            ...this.props.level1List,
-            ...this.props.level2List,
-            ...this.props.level3List,
-            ...this.props.level4List
+            ...this.props.layer1List,
+            ...this.props.layer2List,
+            ...this.props.layer3List,
+            ...this.props.layer4List
         ])
-        const tempFilePath = await canvasToTempFilePath('level_save')
+        const tempFilePath = await canvasToTempFilePath('layer_save')
         saveImageToPhotosAlbum(tempFilePath)
         this.setState({
             showLoading: false
@@ -116,27 +101,27 @@ class Index extends Component {
                 <View className='index'>
                     <View className='canvas-container'>
                         <Canvas
-                            canvasId='level_save'
+                            canvasId='layer_save'
                             disableScroll
                             style='width: 200px; height: 200px;'
                         />
                         <Canvas
-                            canvasId='level_1'
+                            canvasId='layer_1'
                             disableScroll
                             style='width: 200px; height: 200px;'
                         />
                         <Canvas
-                            canvasId='level_2'
+                            canvasId='layer_2'
                             disableScroll
                             style='width: 200px; height: 200px;'
                         />
                         <Canvas
-                            canvasId='level_3'
+                            canvasId='layer_3'
                             disableScroll
                             style='width: 200px; height: 200px;'
                         />
                         <Canvas
-                            canvasId='level_4'
+                            canvasId='layer_4'
                             disableScroll
                             style='width: 200px; height: 200px;'
                         />
@@ -156,9 +141,9 @@ class Index extends Component {
                             </View>
                     }
                 </View>
-                <SelectBox />
-                <LevelSpriteList />
-                <SpriteProperty />
+                <Sprites />
+                <SelectedSprites />
+                <PropertyPanel />
             </Layout>
         )
     }

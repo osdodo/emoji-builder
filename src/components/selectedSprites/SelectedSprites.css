@@ -1,0 +1,25 @@
+.selected-sprites {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.selected-sprites__item {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.selected-sprites__item__image {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    background: #ffffff;
+}
+
+.icon-shanchu1 {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    color: rgba(0,0,0,0.8);
+}
