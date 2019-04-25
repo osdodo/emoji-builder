@@ -8,33 +8,33 @@ import {
     UPDATE_COMPLETED,
 } from '../constants/setting'
 
-export const pushSprite = (layer, sprite) => {
+export const pushSprite = (currentOperatingLayer, sprite) => {
     return {
         type: PUSH_SPRITE,
-        layer: layer,
-        sprite: sprite
+        currentOperatingLayer,
+        sprite
     }
 }
 
 export const selectedLayerSwitch = (selectedLayer) => {
     return {
         type: SELECTED_LAYER_SWITCH,
-        selectedLayer: selectedLayer
+        selectedLayer
     }
 }
 
 export const removeSprite = (currentOperatingLayer, id) => {
     return {
         type: REMOVE_SPRITE,
-        currentOperatingLayer: currentOperatingLayer,
-        id: id
+        currentOperatingLayer,
+        id
     }
 }
 
-export const openSpriteSetting = (layer, id) =>{
+export const openSpriteSetting = (currentOperatingLayer, id) =>{
     return {
         type: OPEN_SPRITE_SETTING,
-        layer,
+        currentOperatingLayer,
         id
     }
 }

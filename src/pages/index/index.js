@@ -1,17 +1,25 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Canvas } from '@tarojs/components'
-import { AtActivityIndicator } from 'taro-ui'
 import Layout from '../../components/layout/Layout'
 import Sprites from '../../components/sprites/Sprites'
 import SelectedSprites from '../../components/selectedSprites/SelectedSprites'
 import PropertyPanel from '../../components/propertyPanel/PropertyPanel'
+
 import { connect } from '@tarojs/redux'
 import { pushSprite, updateCompleted } from '../../actions/setting'
 import { setStatusBarHeight } from '../../actions/navigation'
+
 import {
-    centralizedDraw, asyncCentralizedDraw,
-    canvasToTempFilePath, saveImageToPhotosAlbum,
+    centralizedDraw,
+    canvasToTempFilePath, 
+    saveImageToPhotosAlbum,
+    cleanCanvas
 } from '../../utils/wx-tool'
+import { saveLayerId, drawLayerBasePrefix, canvasList } from '../../canvas-config'
+
+import { AtActivityIndicator } from 'taro-ui'
+import 'taro-ui/dist/style/components/activity-indicator.scss'
+import 'taro-ui/dist/style/components/loading.scss'
 
 import './index.css'
 import '../../iconfont.css'
@@ -36,31 +44,6 @@ class Index extends Component {
         navigationBarTitleText: '表情符号生成器'
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.isUpdating) {
-            const { currentOperatingLayer } = nextProps
-            const ctx = wx.createCanvasContext(`layer_${currentOperatingLayer}`)
-            ctx.draw()
-            switch (currentOperatingLayer) {
-                case 1:
-                    centralizedDraw(ctx, nextProps.layer1List)
-                    break
-                case 2:
-                    centralizedDraw(ctx, nextProps.layer2List)
-                    break
-                case 3:
-                    centralizedDraw(ctx, nextProps.layer3List)
-                    break
-                case 4:
-                    centralizedDraw(ctx, nextProps.layer4List)
-                    break
-                default:
-                    break
-            }
-            this.props.onUpdateCompleted()
-        }
-    }
-
     componentWillMount() {
         Taro.getSystemInfo({
             success: res => {
@@ -70,28 +53,47 @@ class Index extends Component {
         })
     }
 
-    componentWillUnmount() { }
-
-    componentDidShow() { }
-
-    componentDidHide() { }
-
-    async onSave() {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isUpdating) {
+            const { currentOperatingLayer } = nextProps
+            const ctx = Taro.createCanvasContext(`${drawLayerBasePrefix}${currentOperatingLayer}`)
+            ctx.draw()
+            centralizedDraw(ctx, nextProps[`layer${currentOperatingLayer}List`])
+            this.props.onUpdateCompleted()
+        }
+    }
+    
+    handleClickSave() {
         this.setState({
             showLoading: true
         })
-        const ctx = wx.createCanvasContext('layer_save')
-        await asyncCentralizedDraw(ctx, [
+        const ctx = Taro.createCanvasContext(saveLayerId)
+        centralizedDraw(ctx, [
             ...this.props.layer1List,
             ...this.props.layer2List,
             ...this.props.layer3List,
             ...this.props.layer4List
         ])
-        const tempFilePath = await canvasToTempFilePath('layer_save')
-        saveImageToPhotosAlbum(tempFilePath)
-        this.setState({
-            showLoading: false
-        })
+        canvasToTempFilePath(saveLayerId)
+            .then(tempFilePath => {
+                saveImageToPhotosAlbum(tempFilePath)
+                    .then(() => {
+                        cleanCanvas(saveLayerId)
+                        this.setState({
+                            showLoading: false
+                        })
+                    })
+                    .catch(err => {
+                        this.setState({
+                            showLoading: false
+                        })
+                    })
+            })
+            .catch(err => {
+                this.setState({
+                    showLoading: false
+                })
+            })
     }
 
     render() {
@@ -100,31 +102,16 @@ class Index extends Component {
             <Layout title='表情符号生成器'>
                 <View className='index'>
                     <View className='canvas-container'>
-                        <Canvas
-                            canvasId='layer_save'
-                            disableScroll
-                            style='width: 200px; height: 200px;'
-                        />
-                        <Canvas
-                            canvasId='layer_1'
-                            disableScroll
-                            style='width: 200px; height: 200px;'
-                        />
-                        <Canvas
-                            canvasId='layer_2'
-                            disableScroll
-                            style='width: 200px; height: 200px;'
-                        />
-                        <Canvas
-                            canvasId='layer_3'
-                            disableScroll
-                            style='width: 200px; height: 200px;'
-                        />
-                        <Canvas
-                            canvasId='layer_4'
-                            disableScroll
-                            style='width: 200px; height: 200px;'
-                        />
+                        {
+                            canvasList.map(item => 
+                                <Canvas 
+                                    key={item.canvasId}
+                                    canvasId={item.canvasId} 
+                                    disableScroll
+                                    style='width: 200px; height: 200px;'
+                                />
+                            )
+                        }
                     </View>
                     {
                         showLoading ? 
@@ -135,7 +122,7 @@ class Index extends Component {
                             : 
                             <View
                                 className='save'
-                                onClick={this.onSave}
+                                onClick={this.handleClickSave}
                             >
                                 保存
                             </View>

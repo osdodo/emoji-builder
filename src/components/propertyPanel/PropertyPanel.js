@@ -1,5 +1,6 @@
 import { Component } from '@tarojs/taro'
 import { View, Text, Slider } from '@tarojs/components'
+
 import { connect } from '@tarojs/redux'
 import { transformSprite, closeSpriteSetting } from '../../actions/setting'
 
@@ -20,8 +21,7 @@ import '../../iconfont.css'
         }
     })
 )
-
-export default class extends Component {
+class PropertyPanel extends Component {
 
     onMoveSprite(e) {
         const type = e.target.dataset.type
@@ -174,3 +174,5 @@ export default class extends Component {
         )
     }
 }
+
+export default PropertyPanel

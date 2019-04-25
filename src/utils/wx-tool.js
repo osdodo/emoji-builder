@@ -1,4 +1,4 @@
-import { promise } from "when";
+import { promise } from 'when'
 
 export const canvasGetImageData = (canvasId, dx, dy, dWidth, dHeight) => {
     return new Promise((resolve, reject) => {
@@ -41,7 +41,7 @@ export const canvasToTempFilePath = (canvasId) => {
     return new promise((resolve, reject) => {
         setTimeout(() => {
             wx.canvasToTempFilePath({
-                canvasId: canvasId,
+                canvasId,
                 success: res => {
                     resolve(res.tempFilePath)
                 },
@@ -53,41 +53,44 @@ export const canvasToTempFilePath = (canvasId) => {
     })
 }
 
-const cleanSaveCanvas = () => {
-    const ctx = wx.createCanvasContext('layer_save')
+export const saveImageToPhotosAlbum = (filePath) => {
+    return new promise((resolve, reject) => {
+        wx.saveImageToPhotosAlbum({
+            filePath: filePath,
+            success: () => {
+                resolve()
+            },
+            fail: e => {
+                if (e.errMsg.indexOf('auth') != -1) {
+                    wx.showModal({
+                        content: '❗同意访问您的相册，才能保存图片',
+                        showCancel: false,
+                        success: (tip) => {
+                            if (tip.confirm) {
+                                wx.openSetting({
+                                    success: (res) => { }
+                                })
+                            }
+                        }
+                    })
+                } else {
+                    wx.showToast({
+                        title: '❌保存失败，请重试',
+                        icon: 'none',
+                        duration: 2000
+                    })
+                }
+                reject(e)
+            }
+        })
+    })
+}
+
+export const cleanCanvas = (canvasId) => {
+    const ctx = wx.createCanvasContext(canvasId)
     // ctx.setFillStyle('#ffffff')
     // ctx.fillRect(0, 0, 200, 200)
     ctx.draw()
-}
-
-export const saveImageToPhotosAlbum = (filePath) => {
-    wx.saveImageToPhotosAlbum({
-        filePath: filePath,
-        success: () => {
-            cleanSaveCanvas()
-        },
-        fail: e => {
-            if (e.errMsg.indexOf('auth') != -1) {
-                wx.showModal({
-                    content: '❗同意访问您的相册，才能保存图片',
-                    showCancel: false,
-                    success: (tip) => {
-                        if (tip.confirm) {
-                            wx.openSetting({
-                                success: (res) => { }
-                            })
-                        }
-                    }
-                })
-            } else {
-                wx.showToast({
-                    title: '❌保存失败，请重试',
-                    icon: 'none',
-                    duration: 2000
-                })
-            }
-        }
-    })
 }
 
 export const mergeImgData = (bottomLayerImgData, imgData) => {
@@ -148,15 +151,4 @@ export const centralizedDraw = (ctx, sprites) => {
             sprites[i].isFlip
         )
     }
-}
-
-export const asyncCentralizedDraw = (ctx, sprites) => {
-    return new promise((resolve, reject) => {
-        try {
-            centralizedDraw(ctx, sprites)
-            resolve()
-        } catch (error) {
-            reject(error)
-        }
-    })
 }

@@ -1,8 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView, Image } from '@tarojs/components'
-import { drawImage } from '../../utils/wx-tool'
+
 import { connect } from '@tarojs/redux'
 import { pushSprite, selectedLayerSwitch } from '../../actions/setting'
+
+import { drawImage } from '../../utils/wx-tool'
+import { drawLayerBasePrefix } from '../../canvas-config'
 
 import './Sprites.css'
 
@@ -90,10 +93,8 @@ import layer_4_21 from '../../images/layer4/layer_4_21.png'
         },
     })
 )
-
-export default class extends Component {
+class Sprites extends Component {
     state = {
-        
         sprites: [
             {
                 layer: 1,
@@ -196,7 +197,7 @@ export default class extends Component {
         const timestamp  = new Date().getTime()
         const image = e.target.dataset.image
         const { currentSelectedLayer, layer2ListLen, layer4ListLen } = this.props
-        const ctx = Taro.createCanvasContext(`layer_${currentSelectedLayer}`)
+        const ctx = Taro.createCanvasContext(`${drawLayerBasePrefix}${currentSelectedLayer}`)
 
         let x = 36 
         let y = 36 
@@ -284,3 +285,4 @@ export default class extends Component {
     }
 }
 
+export default Sprites

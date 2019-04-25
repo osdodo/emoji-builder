@@ -2,7 +2,7 @@ import { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import Navigation from '../navigation/Navigation'
 
-export default class extends Component {
+class Layout extends Component {
     shouldComponentUpdate() {
         return false
     }
@@ -15,3 +15,6 @@ export default class extends Component {
         )
     }
 }
+
+export default Layout
+

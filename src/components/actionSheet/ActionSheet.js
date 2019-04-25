@@ -1,5 +1,6 @@
 import { Component } from '@tarojs/taro'
 import { View, Text, Button } from '@tarojs/components'
+
 import { connect } from '@tarojs/redux'
 import { closeNavActionSheet } from '../../actions/navigation'
 
@@ -11,7 +12,7 @@ import '../../iconfont.css'
         dispatch(closeNavActionSheet())
     },
 }))
-export default class extends Component {
+class ActionSheet extends Component {
     render() {
         const { isOpenedNavActionSheet, statusBarHeight } = this.props
         return (
@@ -38,3 +39,5 @@ export default class extends Component {
         )
     }
 }
+
+export default ActionSheet

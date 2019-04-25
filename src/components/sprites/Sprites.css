@@ -26,16 +26,18 @@
 }
 
 .sprites-box {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 25% 25% 25% 25%;
+    grid-row-gap: 25px;
+    grid-column-gap: 10px;
+    padding: 30px;
 }
 
 .sprites-box__item {
     width: 128px;
     height: 128px;
     background: rgb(246, 246, 246);
-    border-radius: 50%;
+    border-radius: 20%;
     box-shadow: 5px 5px 15px rgba(221, 221, 220, 0.6);
-    margin-bottom: 15px;
 }

@@ -1,5 +1,6 @@
 import { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
+
 import { connect } from '@tarojs/redux'
 import { removeSprite, openSpriteSetting } from '../../actions/setting'
 
@@ -17,8 +18,7 @@ import './SelectedSprites.css'
         }
     })
 )
-
-export default class extends Component {
+class SelectedSprites extends Component {
     render() {
         return (
             <View
@@ -59,3 +59,5 @@ export default class extends Component {
         )
     }
 }
+
+export default SelectedSprites

@@ -20,19 +20,6 @@ const INITIAL_STATE = {
     isUpdating: false,
 }
 
-const getCurrentSettingSprite = (state, action) => {
-    switch (action.layer) {
-        case 1:
-            return findSprite(state.layer1List, action.id)
-        case 2:
-            return findSprite(state.layer2List, action.id)
-        case 3:
-            return findSprite(state.layer3List, action.id)
-        case 4:
-            return findSprite(state.layer4List, action.id)
-    }
-}
-
 const findSprite = (spriteList, id) => {
     for (let i = 0, len = spriteList.length; i < len; i++) {
         if (spriteList[i].id === id) {
@@ -57,38 +44,23 @@ const updateSpriteList = (spriteList, sprite) => {
 export default function setting(state = INITIAL_STATE, action) {
     switch (action.type) {
         case PUSH_SPRITE:
-            switch (action.layer) {
-                case 1:
+            {
+                const { currentOperatingLayer } = action
+                if (currentOperatingLayer === 1) {
                     return {
                         ...state,
                         layer1List: [action.sprite],
                         isUpdating: true,
                         currentOperatingLayer: 1
                     }
-                case 2:
-                    return {
-                        ...state,
-                        layer2List: [
-                            ...state.layer2List,
-                            action.sprite
-                        ]
-                    }
-                case 3:
-                    return {
-                        ...state,
-                        layer3List: [
-                            ...state.layer3List,
-                            action.sprite
-                        ]
-                    }
-                case 4:
-                    return {
-                        ...state,
-                        layer4List: [
-                            ...state.layer4List,
-                            action.sprite
-                        ]
-                    }
+                }
+                return {
+                    ...state,
+                    [`layer${currentOperatingLayer}List`]: [
+                        ...state[`layer${currentOperatingLayer}List`],
+                        action.sprite
+                    ]
+                }
             }
         case SELECTED_LAYER_SWITCH:
             return {
@@ -96,48 +68,21 @@ export default function setting(state = INITIAL_STATE, action) {
                 currentSelectedLayer: action.selectedLayer
             }
         case REMOVE_SPRITE:
-            switch (action.currentOperatingLayer) {
-                case 1:
-                    return {
-                        ...state,
-                        layer1List: state.layer1List.filter(item => {
-                            return item.id !== action.id
-                        }),
-                        isUpdating: true,
-                        currentOperatingLayer: 1
-                    }
-                case 2:
-                    return {
-                        ...state,
-                        layer2List: state.layer2List.filter(item => {
-                            return item.id !== action.id
-                        }),
-                        isUpdating: true,
-                        currentOperatingLayer: 2
-                    }
-                case 3:
-                    return {
-                        ...state,
-                        layer3List: state.layer3List.filter(item => {
-                            return item.id !== action.id
-                        }),
-                        isUpdating: true,
-                        currentOperatingLayer: 3
-                    }
-                case 4:
-                    return {
-                        ...state,
-                        layer4List: state.layer4List.filter(item => {
-                            return item.id !== action.id
-                        }),
-                        isUpdating: true,
-                        currentOperatingLayer: 4
-                    }
+            {
+                const { currentOperatingLayer } = action
+                return {
+                    ...state,
+                    currentOperatingLayer,
+                    [`layer${currentOperatingLayer}List`]: state[`layer${currentOperatingLayer}List`].filter(item => {
+                        return item.id !== action.id
+                    }),
+                    isUpdating: true
+                }
             }
         case OPEN_SPRITE_SETTING:
             return {
                 ...state,
-                currentSettingSprite: getCurrentSettingSprite(state, action),
+                currentSettingSprite: findSprite(state[`layer${action.currentOperatingLayer}List`], action.id),
                 isSettingProperty: true
             }
         case CLOSE_SPRITE_SETTING:
@@ -146,45 +91,21 @@ export default function setting(state = INITIAL_STATE, action) {
                 isSettingProperty: false
             }
         case TRANSFORM_SPRITE:
-            switch (action.sprite.layer) {
-                case 1:
-                    return {
-                        ...state,
-                        layer1List: updateSpriteList(state.layer1List, action.sprite),
-                        currentSettingSprite: action.sprite,
-                        isUpdating: true,
-                        currentOperatingLayer: 1
-                    }
-                case 2:
-                    return {
-                        ...state,
-                        layer2List: updateSpriteList(state.layer2List, action.sprite),
-                        currentSettingSprite: action.sprite,
-                        isUpdating: true,
-                        currentOperatingLayer: 2
-                    }
-                case 3:
-                    return {
-                        ...state,
-                        layer3List: updateSpriteList(state.layer3List, action.sprite),
-                        currentSettingSprite: action.sprite,
-                        isUpdating: true,
-                        currentOperatingLayer: 3
-                    }
-                case 4:
-                    return {
-                        ...state,
-                        layer4List: updateSpriteList(state.layer4List, action.sprite),
-                        currentSettingSprite: action.sprite,
-                        isUpdating: true,
-                        currentOperatingLayer: 4
-                    }
-            }
-            case UPDATE_COMPLETED:
+            {
+                const currentOperatingLayer = action.sprite.layer
                 return {
                     ...state,
-                    isUpdating: false
+                    currentOperatingLayer,
+                    [`layer${currentOperatingLayer}List`]: updateSpriteList(state[`layer${currentOperatingLayer}List`], action.sprite),
+                    currentSettingSprite: action.sprite,
+                    isUpdating: true
                 }
+            }
+        case UPDATE_COMPLETED:
+            return {
+                ...state,
+                isUpdating: false
+            }
         default:
             return state
     }
