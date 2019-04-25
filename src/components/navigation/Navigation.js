@@ -28,7 +28,7 @@ class Navigation extends Component {
                     <View className='navigation__title'>{this.props.title}</View>
                     <View className='navigation__tool'>
                         <Text 
-                            className='iconfont icon-shezhi' 
+                            className='iconfont icon-setting' 
                             style='font-size: 22px;' 
                             onClick={this.props.handleOpenNavActionSheet}
                         >

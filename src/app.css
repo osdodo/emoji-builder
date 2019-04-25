@@ -1,5 +1,6 @@
 page {
     background: rgb(246, 246, 246);
+    box-sizing: border-box;
 }
 
 button {

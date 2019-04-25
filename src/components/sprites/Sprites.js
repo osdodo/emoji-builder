@@ -184,6 +184,26 @@ class Sprites extends Component {
             },
         ]
     }
+
+    componentDidMount() {
+       this.defaultDraw()
+    }
+
+    defaultDraw = () => {
+        const timestamp  = new Date().getTime()
+        const ctx = wx.createCanvasContext(`${drawLayerBasePrefix}1`)
+        drawImage(ctx, layer_1_04, 36, 36, 128, 128, 1, 0, false)
+        this.props.pushSprite(1, {
+            id: timestamp,
+            path: layer_1_04,
+            layer: 1,
+            x: 36, y: 36,
+            w: 128, h: 128,
+            scale: 1,
+            degrees: 0,
+            isFlip: false
+        })
+    }
    
     handleLayerChange(e) {
         const layer = e.target.dataset.layer

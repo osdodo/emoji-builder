@@ -88,7 +88,8 @@ export default function setting(state = INITIAL_STATE, action) {
         case CLOSE_SPRITE_SETTING:
             return {
                 ...state,
-                isSettingProperty: false
+                isSettingProperty: false,
+                currentSettingSprite: {}
             }
         case TRANSFORM_SPRITE:
             {

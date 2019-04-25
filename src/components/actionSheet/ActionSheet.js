@@ -31,8 +31,16 @@ class ActionSheet extends Component {
                         hoverClass='none'
                         open-type='contact'
                     >
-                        <Text className='iconfont icon-jianyifankui' style='font-size: 18px;'></Text>
+                        <Text className='iconfont icon-feedback' style='font-size: 18px;'></Text>
                         <Text className='action-item__text'>建议反馈</Text>
+                    </Button>
+                    <Button 
+                        className='action-item' 
+                        hoverClass='none'
+                        openType='share'
+                    >
+                        <Text className='iconfont icon-share' style='font-size: 18px;'></Text>
+                        <Text className='action-item__text'>分享给好友</Text>
                     </Button>
                 </View>
             </View>

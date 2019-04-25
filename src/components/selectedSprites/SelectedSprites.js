@@ -42,10 +42,10 @@ class SelectedSprites extends Component {
                                 dataLayer={item.layer}
                                 dataId={item.id}
                                 onClick={this.props.handleOpenSpriteSetting}
-                                style={item.id === this.props.currentSettingSprite.id ? 'border-bottom: 3px solid rgb(0,0,0);' : ''}
+                                style={item.id === this.props.currentSettingSprite.id ? 'border: 1px solid #fc1600;' : ''}
                             />
                             <Text
-                                className='iconfont icon-shanchu1'
+                                className='iconfont icon-delete'
                                 style='font-size: 20px;'
                                 dataLayer={item.layer}
                                 dataId={item.id}

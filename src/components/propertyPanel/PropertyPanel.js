@@ -82,21 +82,23 @@ class PropertyPanel extends Component {
                 }
             >
                 <Text
-                    className='iconfont icon-guanbi'
+                    className='iconfont icon-close'
                     style='font-size: 30px;'
                     onClick={this.props.handleCloseSpriteSetting}
                 >
                 </Text>
                 <Text
-                    className='iconfont icon-shezhi sprite-property__title'
+                    className='iconfont icon-setting sprite-property__title'
                     style='font-size: 15px;'
-                >属性设置：</Text>
+                >
+                    属性设置：
+                </Text>
                 <View className='property-box'>
                     <View
                         className='scale'
                     >
                         <Text
-                            className='iconfont icon-suofang'
+                            className='iconfont icon-zoom'
                             style='font-size: 30px;'
                         >
                         </Text>
@@ -118,7 +120,7 @@ class PropertyPanel extends Component {
                         className='degrees'
                     >
                         <Text
-                            className='iconfont icon-xuanzhuan'
+                            className='iconfont icon-rotate'
                             style='font-size: 30px;'
                         >
                         </Text>
@@ -141,28 +143,28 @@ class PropertyPanel extends Component {
                             className='position__info'
                         >[x: {currentSettingSprite.x}, y: {currentSettingSprite.y}]</Text>
                         <Text
-                            className='iconfont icon-jiantou'
+                            className='iconfont icon-arrow'
                             style='font-size: 30px;'
                             dataType='x--'
                             onClick={this.onMoveSprite}
                         >
                         </Text>
                         <Text
-                            className='iconfont icon-jiantou'
+                            className='iconfont icon-arrow'
                             style='font-size: 30px; transform: rotate(180deg);'
                             dataType='x++'
                             onClick={this.onMoveSprite}
                         >
                         </Text>
                         <Text
-                            className='iconfont icon-jiantou'
+                            className='iconfont icon-arrow'
                             style='font-size: 30px; transform: rotate(90deg);'
                             dataType='y--'
                             onClick={this.onMoveSprite}
                         >
                         </Text>
                         <Text
-                            className='iconfont icon-jiantou'
+                            className='iconfont icon-arrow'
                             style='font-size: 30px; transform: rotate(270deg);'
                             dataType='y++'
                             onClick={this.onMoveSprite}

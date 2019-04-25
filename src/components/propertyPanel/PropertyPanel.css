@@ -12,7 +12,7 @@
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5); 
 }
 
-.icon-guanbi {
+.icon-close {
     position: absolute; 
     top: 20px;
     right: 30px;
@@ -45,7 +45,7 @@
     color: #fff;
 }
 
-.icon-jiantou {
+.icon-arrow {
     margin-right: 50px;
 }
 
