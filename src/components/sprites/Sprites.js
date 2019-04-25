@@ -265,7 +265,7 @@ class Sprites extends Component {
                                     <View
                                         className='option__item'
                                         key={String(item.layer)}
-                                        style={currentSelectedLayer == item.layer ? 'background: #ffffff;' : ''}
+                                        style={currentSelectedLayer == item.layer ? 'background: #ffffff; color: #fc1600;' : ''}
                                         dataLayer={item.layer}
                                         onClick={this.handleLayerChange}
                                     >
