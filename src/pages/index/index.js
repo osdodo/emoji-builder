@@ -6,7 +6,7 @@ import SelectedSprites from '../../components/selectedSprites/SelectedSprites'
 import PropertyPanel from '../../components/propertyPanel/PropertyPanel'
 
 import { connect } from '@tarojs/redux'
-import { pushSprite, updateCompleted } from '../../actions/setting'
+import { pushSprite, drawCompleted } from '../../actions/setting'
 import { setStatusBarHeight } from '../../actions/navigation'
 
 import {
@@ -24,12 +24,12 @@ import 'taro-ui/dist/style/components/loading.scss'
 import './index.css'
 import '../../iconfont.css'
 
-@connect(({ setting }) => setting,(dispatch) => ({
+@connect(({ setting }) => setting, (dispatch) => ({
     onPushSprite(layer, sprite) {
         dispatch(pushSprite(layer, sprite))
     },
-    onUpdateCompleted() {
-        dispatch(updateCompleted())
+    handleDrawCompleted() {
+        dispatch(drawCompleted())
     },
     setStatusBarHeight(val) {
         dispatch(setStatusBarHeight(val))
@@ -54,12 +54,12 @@ class Index extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.isUpdating) {
+        if (nextProps.isDrawing) {
             const { currentOperatingLayer } = nextProps
             const ctx = Taro.createCanvasContext(`${drawLayerBasePrefix}${currentOperatingLayer}`)
             ctx.draw()
             centralizedDraw(ctx, nextProps[`layer${currentOperatingLayer}List`])
-            this.props.onUpdateCompleted()
+            this.props.handleDrawCompleted()
         }
     }
     

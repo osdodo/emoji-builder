@@ -5,7 +5,7 @@ import {
     OPEN_SPRITE_SETTING,
     CLOSE_SPRITE_SETTING,
     TRANSFORM_SPRITE,
-    UPDATE_COMPLETED,
+    DRAW_COMPLETED,
 } from '../constants/setting'
 
 export const pushSprite = (currentOperatingLayer, sprite) => {
@@ -52,8 +52,8 @@ export const transformSprite = (sprite) => {
     }
 }
 
-export const updateCompleted = () => {
+export const drawCompleted = () => {
     return {
-        type: UPDATE_COMPLETED,
+        type: DRAW_COMPLETED,
     }
 }

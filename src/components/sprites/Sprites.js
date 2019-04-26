@@ -190,11 +190,10 @@ class Sprites extends Component {
     }
 
     defaultDraw = () => {
-        const timestamp  = new Date().getTime()
         const ctx = wx.createCanvasContext(`${drawLayerBasePrefix}1`)
         drawImage(ctx, layer_1_04, 36, 36, 128, 128, 1, 0, false)
         this.props.pushSprite(1, {
-            id: timestamp,
+            id: `${new Date().getTime()}`,
             path: layer_1_04,
             layer: 1,
             x: 36, y: 36,
@@ -214,7 +213,6 @@ class Sprites extends Component {
     }
 
     handleClickImg(e) {
-        const timestamp  = new Date().getTime()
         const image = e.target.dataset.image
         const { currentSelectedLayer, layer2ListLen, layer4ListLen } = this.props
         const ctx = Taro.createCanvasContext(`${drawLayerBasePrefix}${currentSelectedLayer}`)
@@ -234,7 +232,7 @@ class Sprites extends Component {
        
         drawImage(ctx, image, x, y, w, h, scale, degrees, isFlip)
         this.props.pushSprite(currentSelectedLayer, {
-            id: timestamp,
+            id: `${new Date().getTime()}`,
             path: image,
             layer: currentSelectedLayer,
             x, y,
@@ -298,6 +296,9 @@ class Sprites extends Component {
                                 )
                             })
                         }
+                        <View className='sprites-box__item'>
+                            <Text className='sprites-box__item__text'>坐等更新</Text>
+                        </View>
                     </View>
                 </ScrollView>
             </View>

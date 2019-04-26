@@ -32,16 +32,16 @@ class PropertyPanel extends Component {
         }
         switch (type) {
             case 'x++':
-                point.x++
+                point.x = point.x + 5
                 break
             case 'x--':
-                point.x--
+                point.x = point.x - 5
                 break
             case 'y++':
-                point.y++
+                point.y = point.y + 5
                 break
             case 'y--':
-                point.y--
+                point.y = point.y - 5
                 break
             default:
                 break
@@ -72,6 +72,7 @@ class PropertyPanel extends Component {
 
     render() {
         const { currentSettingSprite } = this.props
+        console.log(currentSettingSprite)
         return (
             <View
                 className='sprite-property'
@@ -141,7 +142,7 @@ class PropertyPanel extends Component {
                     <View className='position'>
                         <Text
                             className='position__info'
-                        >[x: {currentSettingSprite.x}, y: {currentSettingSprite.y}]</Text>
+                        >(x: {currentSettingSprite.x}, y: {currentSettingSprite.y})</Text>
                         <Text
                             className='iconfont icon-arrow'
                             style='font-size: 30px;'

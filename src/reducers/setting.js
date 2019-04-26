@@ -5,7 +5,7 @@ import {
     OPEN_SPRITE_SETTING,
     CLOSE_SPRITE_SETTING,
     TRANSFORM_SPRITE,
-    UPDATE_COMPLETED,
+    DRAW_COMPLETED,
 } from '../constants/setting'
 
 const INITIAL_STATE = {
@@ -17,7 +17,7 @@ const INITIAL_STATE = {
     currentOperatingLayer: 0,
     isSettingProperty: false,
     currentSettingSprite: {},
-    isUpdating: false,
+    isDrawing: false,
 }
 
 const findSprite = (spriteList, id) => {
@@ -50,7 +50,7 @@ export default function setting(state = INITIAL_STATE, action) {
                     return {
                         ...state,
                         layer1List: [action.sprite],
-                        isUpdating: true,
+                        isDrawing: true,
                         currentOperatingLayer: 1
                     }
                 }
@@ -76,7 +76,7 @@ export default function setting(state = INITIAL_STATE, action) {
                     [`layer${currentOperatingLayer}List`]: state[`layer${currentOperatingLayer}List`].filter(item => {
                         return item.id !== action.id
                     }),
-                    isUpdating: true
+                    isDrawing: true
                 }
             }
         case OPEN_SPRITE_SETTING:
@@ -89,7 +89,6 @@ export default function setting(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 isSettingProperty: false,
-                currentSettingSprite: {}
             }
         case TRANSFORM_SPRITE:
             {
@@ -99,13 +98,13 @@ export default function setting(state = INITIAL_STATE, action) {
                     currentOperatingLayer,
                     [`layer${currentOperatingLayer}List`]: updateSpriteList(state[`layer${currentOperatingLayer}List`], action.sprite),
                     currentSettingSprite: action.sprite,
-                    isUpdating: true
+                    isDrawing: true
                 }
             }
-        case UPDATE_COMPLETED:
+        case DRAW_COMPLETED:
             return {
                 ...state,
-                isUpdating: false
+                isDrawing: false
             }
         default:
             return state
