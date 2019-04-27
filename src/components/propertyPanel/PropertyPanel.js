@@ -72,7 +72,6 @@ class PropertyPanel extends Component {
 
     render() {
         const { currentSettingSprite } = this.props
-        console.log(currentSettingSprite)
         return (
             <View
                 className='sprite-property'
