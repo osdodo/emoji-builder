@@ -9,7 +9,7 @@ class Layout extends Component {
     render() {
         return (
             <View className='page' id='page'>
-                <Navigation title={this.props.title} />
+                <Navigation title={this.props.title} showGoBack={this.props.showGoBack}/>
                 {this.props.children}
             </View>
         )

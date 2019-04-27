@@ -272,7 +272,7 @@ class Sprites extends Component {
                                 )
                             })
                         }
-                        <View className='option__item'>坐等更新</View>
+                        <View className='option__item'>没有了:(</View>
                     </View>
                 </ScrollView>
                 <ScrollView
@@ -297,7 +297,7 @@ class Sprites extends Component {
                             })
                         }
                         <View className='sprites-box__item'>
-                            <Text className='sprites-box__item__text'>坐等更新</Text>
+                            <Text className='sprites-box__item__text'>没有了:(</Text>
                         </View>
                     </View>
                 </ScrollView>
