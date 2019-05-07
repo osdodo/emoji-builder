@@ -11,11 +11,11 @@ import { setStatusBarHeight } from '../../actions/navigation'
 
 import {
     centralizedDraw,
-    canvasToTempFilePath, 
+    canvasToTempFilePath,
     saveImageToPhotosAlbum,
     cleanCanvas
 } from '../../utils/wx-tool'
-import { saveLayerId, drawLayerBasePrefix, canvasList } from '../../canvas-config'
+import { canvasW, saveLayerId, drawLayerBasePrefix, canvasList } from '../../canvas-config'
 
 import { AtActivityIndicator } from 'taro-ui'
 import 'taro-ui/dist/style/components/activity-indicator.scss'
@@ -62,7 +62,7 @@ class Index extends Component {
             this.props.handleDrawCompleted()
         }
     }
-    
+
     handleClickSave() {
         this.setState({
             showLoading: true
@@ -100,37 +100,39 @@ class Index extends Component {
         const { showLoading } = this.state
         return (
             <Layout title='表情符号生成器'>
-                <View className='index'>
-                    <View className='canvas-container'>
+                <View>
+                    <View className='top'>
+                        <View className='canvas-container'>
+                            {
+                                canvasList.map(item =>
+                                    <Canvas
+                                        key={item.canvasId}
+                                        canvasId={item.canvasId}
+                                        disableScroll
+                                        style={`width: ${canvasW}px; height: ${canvasW}px;`}
+                                    />
+                                )
+                            }
+                        </View>
                         {
-                            canvasList.map(item => 
-                                <Canvas 
-                                    key={item.canvasId}
-                                    canvasId={item.canvasId} 
-                                    disableScroll
-                                    style='width: 200px; height: 200px;'
+                            showLoading ?
+                                <AtActivityIndicator
+                                    className='loading'
+                                    content='处理中...'
                                 />
-                            )
+                                :
+                                <View
+                                    className='save'
+                                    onClick={this.handleClickSave}
+                                >
+                                    保存
+                                </View>
                         }
                     </View>
-                    {
-                        showLoading ? 
-                            <AtActivityIndicator
-                                className='loading'
-                                content='处理中...'
-                            />
-                            : 
-                            <View
-                                className='save'
-                                onClick={this.handleClickSave}
-                            >
-                                保存
-                            </View>
-                    }
+                    <Sprites />
+                    <SelectedSprites />
+                    <PropertyPanel />
                 </View>
-                <Sprites />
-                <SelectedSprites />
-                <PropertyPanel />
             </Layout>
         )
     }

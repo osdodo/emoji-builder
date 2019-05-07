@@ -80,9 +80,9 @@ import layer_4_21 from '../../images/layer4/layer_4_21.png'
 
 @connect(
     ({ setting: { currentSelectedLayer, layer2List, layer4List} }) => ({
-        currentSelectedLayer, 
-        layer2ListLen: layer2List.length,
-        layer4ListLen: layer4List.length
+        currentSelectedLayer,
+        layer2List,
+        layer4List
     }),
     dispatch => ({
         selectedLayerSwitch(selectedLayer) {
@@ -203,7 +203,7 @@ class Sprites extends Component {
             isFlip: false
         })
     }
-   
+
     handleLayerChange(e) {
         const layer = e.target.dataset.layer
         if (this.props.currentSelectedLayer == layer) {
@@ -212,24 +212,35 @@ class Sprites extends Component {
         this.props.selectedLayerSwitch(layer)
     }
 
-    handleClickImg(e) {
-        const image = e.target.dataset.image
-        const { currentSelectedLayer, layer2ListLen, layer4ListLen } = this.props
-        const ctx = Taro.createCanvasContext(`${drawLayerBasePrefix}${currentSelectedLayer}`)
-
-        let x = 36 
-        let y = 36 
-        let w = 128
-        let h = 128
-        let scale = 1
-        let degrees = 0
-        let isFlip = false
-        if ((currentSelectedLayer === 2 && (layer2ListLen + 1) % 2 === 0) ||
-            (currentSelectedLayer === 4 && (layer4ListLen + 1) % 2 === 0)) {
-            isFlip = true
-            //x = 200 - 128 - 36  //canvas width - w - x
+    checkFlip = (spriteListsObj, currentSelectedLayer, path) => {
+        const spriteList = spriteListsObj[`${currentSelectedLayer}`] || []
+        for (let i = 0, len = spriteList.length; i < len; i++) {
+            if (spriteList[i].path === path) {
+                return true
+            }
         }
-       
+        return false
+    }
+
+    handleClickImg(e) {
+        const { currentSelectedLayer, layer2List, layer4List } = this.props
+        const image = e.target.dataset.image
+        const ctx = Taro.createCanvasContext(`${drawLayerBasePrefix}${currentSelectedLayer}`)
+        const x = 36
+        const y = 36
+        const w = 128
+        const h = 128
+        const scale = 1
+        const degrees = 0
+        const isFlip = this.checkFlip(
+            {
+                '2': layer2List,
+                '4': layer4List
+            },
+            currentSelectedLayer,
+            image
+        )
+
         drawImage(ctx, image, x, y, w, h, scale, degrees, isFlip)
         this.props.pushSprite(currentSelectedLayer, {
             id: `${new Date().getTime()}`,

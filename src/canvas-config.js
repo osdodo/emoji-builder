@@ -1,3 +1,5 @@
+export const canvasW = 200
+
 export const saveLayerId = 'layer_save'
 
 export const drawLayerBasePrefix = 'layer_'

@@ -1,4 +1,5 @@
 import { promise } from 'when'
+import { canvasW } from '../canvas-config'
 
 export const canvasGetImageData = (canvasId, dx, dy, dWidth, dHeight) => {
     return new Promise((resolve, reject) => {
@@ -49,7 +50,7 @@ export const canvasToTempFilePath = (canvasId) => {
                     reject(err)
                 }
             })
-        },2000)
+        }, 2000)
     })
 }
 
@@ -94,31 +95,31 @@ export const cleanCanvas = (canvasId) => {
 }
 
 export const mergeImgData = (bottomLayerImgData, imgData) => {
-    for (let i = 0, len = imgData.length; i < len; i += 4) { 
+    for (let i = 0, len = imgData.length; i < len; i += 4) {
         if (imgData[i + 3] === 255) {
             bottomLayerImgData[i] = imgData[i]
             bottomLayerImgData[i + 1] = imgData[i + 1]
             bottomLayerImgData[i + 2] = imgData[i + 2]
             bottomLayerImgData[i + 3] = imgData[i + 3]
         }
-    } 
+    }
 }
 
 export const addWhiteBackground = (imgData) => {
-    for (let i = 0, len = imgData.length; i < len; i += 4) { 
+    for (let i = 0, len = imgData.length; i < len; i += 4) {
         if (imgData[i + 3] === 0) {
             imgData[i] = 255
             imgData[i + 1] = 255
             imgData[i + 2] = 255
             imgData[i + 3] = 255
         }
-    } 
+    }
 }
 
-export const drawImage = (ctx, path, x, y, w, h, scale=1, degrees=0, isFlip = false) => {
-    ctx.save() 
+export const drawImage = (ctx, path, x, y, w, h, scale = 1, degrees = 0, isFlip = false) => {
+    ctx.save()
     if (isFlip) {
-        ctx.translate(200, 0)
+        ctx.translate(canvasW, 0)
         ctx.scale(-1, 1)
     }
     if (degrees) {
@@ -130,23 +131,28 @@ export const drawImage = (ctx, path, x, y, w, h, scale=1, degrees=0, isFlip = fa
         // ctx.translate(-x_, -y_)
 
         //绕canvas中心旋转
-        ctx.translate(100, 100)
+        const canvasCenter = canvasW / 2
+        ctx.translate(canvasCenter, canvasCenter)
         ctx.rotate((Math.PI / 180) * degrees)
-        ctx.translate(-100, -100)
+        ctx.translate(-canvasCenter, -canvasCenter)
     }
     ctx.drawImage(path, x, y, w * scale, h * scale)
+    if (isFlip) {
+        ctx.translate(canvasW, 0)
+        ctx.scale(-1, 1)
+    }
     ctx.draw(true)
-    ctx.restore() 
+    ctx.restore()
 }
 
 export const centralizedDraw = (ctx, sprites) => {
     for (let i = 0, len = sprites.length; i < len; i++) {
         drawImage(
-            ctx, 
-            sprites[i].path, 
-            sprites[i].x, sprites[i].y, 
-            sprites[i].w, sprites[i].h, 
-            sprites[i].scale, 
+            ctx,
+            sprites[i].path,
+            sprites[i].x, sprites[i].y,
+            sprites[i].w, sprites[i].h,
+            sprites[i].scale,
             sprites[i].degrees,
             sprites[i].isFlip
         )

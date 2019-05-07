@@ -14,7 +14,7 @@ import '../../iconfont.css'
     },
 }))
 class Navigation extends Component {
-    
+
     static defaultProps = {
         title: '',
         showGoBack: false
@@ -25,8 +25,8 @@ class Navigation extends Component {
     }
 
     handleClickGoBack = () => {
-        Taro.navigateBack({                
-            delta: 1            
+        Taro.navigateBack({
+            delta: 1
         })
     }
 
@@ -40,13 +40,13 @@ class Navigation extends Component {
                     <View className='navigation__tool'>
                         {
                             this.props.showGoBack
-                                ? <Text className='iconfont icon-comeback' style='font-size: 22px;' onClick={this.handleClickGoBack} />
-                                : <Text className='iconfont icon-setting' style='font-size: 22px;' onClick={this.props.handleOpenNavActionSheet} />
+                                ? <Text className='iconfont icon-comeback' style='font-size: 20px;' onClick={this.handleClickGoBack} />
+                                : <Text className='iconfont icon-setting' style='font-size: 20px;' onClick={this.props.handleOpenNavActionSheet} />
                         }
                     </View>
-                    <ActionSheet statusBarHeight={statusBarHeight}/>
                 </View>
-                <View style={`height:${statusBarHeight + 50}px`}></View>
+                <View style={`height:${statusBarHeight + 50}px;`}></View>
+                <ActionSheet statusBarHeight={statusBarHeight}/>
             </View>
         )
     }

@@ -17,7 +17,7 @@ class ActionSheet extends Component {
     shouldComponentUpdate() {
         return false
     }
-    
+
     handleClickGoAbout = () => {
         Taro.navigateTo({
             url: '/pages/about/about'
@@ -27,45 +27,41 @@ class ActionSheet extends Component {
     render() {
         const { isOpenedNavActionSheet, statusBarHeight } = this.props
         return (
-            <View>
-                {
-                    isOpenedNavActionSheet && 
-                    <View 
-                        className='overlay' 
-                        onClick={this.props.handleClickOverlay} 
+            <View
+                className='overlay'
+                onClick={this.props.handleClickOverlay}
+                style={isOpenedNavActionSheet ? '' : 'display: none;'}
+            >
+                <View
+                    className='rectangle'
+                    style={`top:${statusBarHeight + 50}px`}
+                >
+                    <View className='triangle-up'></View>
+                    <Button
+                        className='action-item'
+                        hoverClass='none'
+                        openType='share'
                     >
-                        <View 
-                            className='rectangle' 
-                            style={`top:${statusBarHeight + 50}px`}
-                        >
-                            <View className='triangle-up'></View>
-                            <Button 
-                                className='action-item' 
-                                hoverClass='none'
-                                openType='share'
-                            >
-                                <Text className='iconfont icon-share' style='font-size: 18px;'></Text>
-                                <Text className='action-item__text'>分享给好友</Text>
-                            </Button>
-                            <Button 
-                                className='action-item'
-                                hoverClass='none'
-                                open-type='contact'
-                            >
-                                <Text className='iconfont icon-feedback' style='font-size: 18px;'></Text>
-                                <Text className='action-item__text'>建议反馈</Text>
-                            </Button>
-                            <Button 
-                                className='action-item'
-                                hoverClass='none'
-                                onClick={this.handleClickGoAbout}
-                            >
-                                <Text className='iconfont icon-about' style='font-size: 18px;'></Text>
-                                <Text className='action-item__text'>关于</Text>
-                            </Button>
-                        </View>
-                    </View>
-                }
+                        <Text className='iconfont icon-share' style='font-size: 18px;'></Text>
+                        <Text className='action-item__text'>分享给好友</Text>
+                    </Button>
+                    <Button
+                        className='action-item'
+                        hoverClass='none'
+                        open-type='contact'
+                    >
+                        <Text className='iconfont icon-feedback' style='font-size: 18px;'></Text>
+                        <Text className='action-item__text'>建议反馈</Text>
+                    </Button>
+                    <Button
+                        className='action-item'
+                        hoverClass='none'
+                        onClick={this.handleClickGoAbout}
+                    >
+                        <Text className='iconfont icon-about' style='font-size: 18px;'></Text>
+                        <Text className='action-item__text'>关于</Text>
+                    </Button>
+                </View>
             </View>
         )
     }
