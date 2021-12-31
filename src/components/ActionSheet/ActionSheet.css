@@ -1,0 +1,41 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+}
+
+.rectangle {
+  position: absolute;
+  left: 20px;
+  background: white;
+  border-radius: 20px;
+  padding: 20px 20px 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 2001;
+}
+
+.triangle-up {
+  position: absolute;
+  top: -26px;
+  left: 40px;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 30px solid white;
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.action-item__text {
+  margin-left: 20px;
+}

@@ -1,0 +1,56 @@
+.sprite-property {
+  position: absolute;
+  z-index: 10000;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-left: 20px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 1);
+  color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.icon-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #fff;
+}
+
+.sprite-property__title {
+  position: absolute;
+  top: 30px;
+  left: 10px;
+  color: #fff;
+}
+
+.property-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
+.position,
+.scale,
+.degrees {
+  height: 100px;
+  line-height: 100px;
+  display: flex;
+}
+
+.position__info {
+  margin-right: 20px;
+  color: #fff;
+}
+
+.icon-arrow {
+  margin-right: 50px;
+}
+
+.slider {
+  width: 80vw;
+}

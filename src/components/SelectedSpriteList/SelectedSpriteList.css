@@ -1,0 +1,27 @@
+.selected-sprites {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 25% 25% 25% 25%;
+  grid-row-gap: 25px;
+  grid-column-gap: 10px;
+  padding: 30px;
+}
+
+.selected-sprites__item {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.selected-sprites__item__image {
+  width: 128px;
+  height: 128px;
+  border-radius: 20%;
+  background: #ffffff;
+}
+
+.icon-delete {
+  position: absolute;
+  right: 10px;
+  top: -10px;
+  color: #fc1600;
+}
