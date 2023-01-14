@@ -28,7 +28,7 @@ specifiers:
   recoil: ^0.7.5
   stylelint: 14.13.0
   taro-hooks: latest
-  taro-ui: ^3.0.0-alpha.10
+  taro-ui: ^3.1.0-beta.4
   typescript: ^4.8.4
 
 dependencies:
@@ -41,8 +41,8 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   recoil: 0.7.5_biqbaboplfbrettd7655fr4n2y
-  taro-hooks: 1.5.9_s3g5sr5kkha3esqatn6blhh5hu
-  taro-ui: 3.0.0-alpha.10_4slgxsk46kdvvraglscbuudnfm
+  taro-hooks: 1.5.10_s3g5sr5kkha3esqatn6blhh5hu
+  taro-ui: 3.1.0-beta.4_4slgxsk46kdvvraglscbuudnfm
 
 devDependencies:
   '@babel/core': 7.19.3
@@ -3965,7 +3965,7 @@ packages:
       mississippi: 3.0.0
       mkdirp: 0.5.6
       move-concurrently: 1.0.1
-      promise-inflight: 1.0.1
+      promise-inflight: 1.0.1_bluebird@3.7.2
       rimraf: 2.7.1
       ssri: 6.0.2
       unique-filename: 1.1.1
@@ -8863,8 +8863,8 @@ packages:
     resolution: {integrity: sha512-xwK3PzhhxnfWqDfBikHLdAbj7Wy4F887nBcQrzwuF758Fw2qC4ivpKPL9t0uJZk5QYnU28+NqA7Q3lzYGMHQnA==}
     dev: true
 
-  /miniprogram-compiler/0.2.1:
-    resolution: {integrity: sha512-AHQgJFTnVPMcVBUUdKHlCRC3guK212XkWME0awMQiUgpzp/eIbb3jgFdkl3ib9nDbbEK+m2fSBs0++vwetWJ9Q==}
+  /miniprogram-compiler/0.2.2:
+    resolution: {integrity: sha512-fiJXv/15jCcRAU8YKcO7S7fkPKLa5ZBgpLN+d6B3r3KMktM5tAkDEQ+zm6aTfNoHurYOHcRyPyGf26gqQXlFXg==}
     dependencies:
       glob: 7.2.3
       unescape-js: 1.1.4
@@ -8880,7 +8880,7 @@ packages:
       csso: 3.5.1
       j-component: 1.4.6
       less: 3.13.1
-      miniprogram-compiler: 0.2.1
+      miniprogram-compiler: 0.2.2
       postcss: 7.0.39
     dev: true
 
@@ -10118,6 +10118,17 @@ packages:
         optional: true
     dev: true
 
+  /promise-inflight/1.0.1_bluebird@3.7.2:
+    resolution: {integrity: sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==}
+    peerDependencies:
+      bluebird: '*'
+    peerDependenciesMeta:
+      bluebird:
+        optional: true
+    dependencies:
+      bluebird: 3.7.2
+    dev: true
+
   /promise-polyfill/7.1.2:
     resolution: {integrity: sha512-FuEc12/eKqqoRYIGBrUptCBRhobL19PS2U31vMNTfyck1FxPyMfgsXyW4Mav85y/ZN1hop3hOwRlUDok23oYfQ==}
 
@@ -10312,6 +10323,23 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  /react-native-animatable/1.3.3:
+    resolution: {integrity: sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w==}
+    dependencies:
+      prop-types: 15.8.1
+    dev: false
+
+  /react-native-modal/13.0.1_react@18.2.0:
+    resolution: {integrity: sha512-UB+mjmUtf+miaG/sDhOikRfBOv0gJdBU2ZE1HtFWp6UixW9jCk/bhGdHUgmZljbPpp0RaO/6YiMmQSSK3kkMaw==}
+    peerDependencies:
+      react: '*'
+      react-native: '>=0.65.0'
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-native-animatable: 1.3.3
+    dev: false
 
   /react-reconciler/0.27.0_react@18.2.0:
     resolution: {integrity: sha512-HmMDKciQjYmBRGuuhIaKA1ba/7a+UsM5FzOZsMO2JYHt9Jh8reCb7j1eDC95NOyUlKM9KRyvdx0flBuDvYSBoA==}
@@ -11891,8 +11919,8 @@ packages:
       postcss-value-parser: 3.3.1
     dev: true
 
-  /taro-hooks/1.5.9_s3g5sr5kkha3esqatn6blhh5hu:
-    resolution: {integrity: sha512-lzlm6jmmGbTxW6J4R5JxiQVzhikIJxiq3a29hwNOTLYHrHIKTPg7qHoKNudDsxrJQlkx7Iuj1YfEi3vse9cpAA==}
+  /taro-hooks/1.5.10_s3g5sr5kkha3esqatn6blhh5hu:
+    resolution: {integrity: sha512-5k61cduhr5WS2Albue57NGl0e+GbpONwWbMfB9S7abHcB+Az4OQOba/jr+TNF5GBJBX1w+b8T/FR66F8ryBG7w==}
     engines: {node: '>=12.0.0'}
     requiresBuild: true
     peerDependencies:
@@ -11908,8 +11936,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /taro-ui/3.0.0-alpha.10_4slgxsk46kdvvraglscbuudnfm:
-    resolution: {integrity: sha512-sNgMFKv1WrcUvxVrIP5CwzfSAdx5nCGJhb5+4atzK+nJneuX9lKO4hZhlJ4FchrlF68QjM5s5Rb47VAuXVbKsA==}
+  /taro-ui/3.1.0-beta.4_4slgxsk46kdvvraglscbuudnfm:
+    resolution: {integrity: sha512-8VqX2AI2xTHR1Hw28ZzYB61Hw1cVDcSLj0IBtzdF1aWOkl/5VeFPJsCwndajBhEe+mAMKcmEFMvpBDbz3ejCqg==}
     peerDependencies:
       '@tarojs/components': '>=3'
       '@tarojs/react': '>=3'
@@ -11924,6 +11952,9 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-native-modal: 13.0.1_react@18.2.0
+    transitivePeerDependencies:
+      - react-native
     dev: false
 
   /term-size/1.2.0:

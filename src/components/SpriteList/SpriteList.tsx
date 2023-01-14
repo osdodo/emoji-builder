@@ -7,11 +7,10 @@ import {
     spriteState,
     currentOperatingLayerState,
     isDrawingState,
-} from '../../store/atom';
-
-import { checkFlip, drawImage } from '../../utils/helper';
-import loadSprites from '../../utils/loadSprites';
-import { drawLayerBasePrefix } from '../../config';
+} from '@/store/atom';
+import { checkFlip, drawImage } from '@/utils/helper';
+import loadSprites from '@/utils/loadSprites';
+import { drawLayerBasePrefix } from '@/config/index';
 
 import './SpriteList.css';
 

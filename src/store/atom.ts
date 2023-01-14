@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { Sprite } from '../type';
+import { Sprite } from '../types';
 
 export const actionSheetState = atom({
     key: 'actionSheetState',

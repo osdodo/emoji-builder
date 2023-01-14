@@ -1,105 +1,6 @@
 import Taro from '@tarojs/taro';
-import { Sprite } from '../type';
+import { Sprite } from '@/types/index';
 import { canvasW } from '../config';
-
-export const canvasGetImageData = (
-    canvasId: string,
-    dx: number,
-    dy: number,
-    dWidth: number,
-    dHeight: number
-) => {
-    return new Promise((resolve, reject) => {
-        Taro.canvasGetImageData({
-            canvasId: canvasId,
-            x: dx,
-            y: dy,
-            width: dWidth,
-            height: dHeight,
-            success: (res) => {
-                resolve(res.data);
-            },
-            fail: (err) => {
-                reject(err);
-            },
-        });
-    });
-};
-
-export const canvasPutImageData = (
-    canvasId: string,
-    dx: number,
-    dy: number,
-    dWidth: number,
-    dHeight: number,
-    imageData: Uint8ClampedArray
-) => {
-    return new Promise<void>((resolve, reject) => {
-        Taro.canvasPutImageData({
-            canvasId: canvasId,
-            x: dx,
-            y: dy,
-            width: dWidth,
-            height: dHeight,
-            data: imageData,
-            success: () => {
-                resolve();
-            },
-            fail: (err) => {
-                reject(err);
-            },
-        });
-    });
-};
-
-export const canvasToTempFilePath = (canvasId: string) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Taro.canvasToTempFilePath({
-                canvasId,
-                success: (res) => {
-                    resolve(res.tempFilePath);
-                },
-                fail: (err) => {
-                    reject(err);
-                },
-            });
-        }, 2000);
-    });
-};
-
-export const saveImageToPhotosAlbum = (filePath: string) => {
-    return new Promise<void>((resolve, reject) => {
-        Taro.saveImageToPhotosAlbum({
-            filePath: filePath,
-            success: () => {
-                resolve();
-            },
-            fail: (e) => {
-                if (e.errMsg.indexOf('auth') != -1) {
-                    Taro.showModal({
-                        content: '❗同意访问您的相册，才能保存图片',
-                        showCancel: false,
-                        success: (tip) => {
-                            if (tip.confirm) {
-                                Taro.openSetting({
-                                    success: () => {},
-                                });
-                            }
-                        },
-                    });
-                } else {
-                    Taro.showToast({
-                        title: '❌保存失败，请重试',
-                        icon: 'none',
-                        duration: 2000,
-                    });
-                }
-                reject(e);
-            },
-        });
-    });
-};
 
 export const cleanCanvas = (canvasId: string) => {
     const ctx = Taro.createCanvasContext(canvasId);
@@ -174,10 +75,7 @@ export const centralizedDraw = (ctx: Taro.CanvasContext, sprites: Sprite[]) => {
     }
 };
 
-export const checkFlip = (
-    spriteList: Sprite[],
-    path: string
-) => {
+export const checkFlip = (spriteList: Sprite[], path: string) => {
     for (let i = 0, len = spriteList.length; i < len; i++) {
         if (spriteList[i].path === path) {
             return true;
@@ -187,12 +85,12 @@ export const checkFlip = (
 };
 
 export const updateSpriteList = (spriteList: Sprite[], sprite: Sprite) => {
-    const newSpriteList = [...spriteList]
+    const newSpriteList = [...spriteList];
     for (let i = 0, len = newSpriteList.length; i < len; i++) {
         if (newSpriteList[i].id === sprite.id) {
-            newSpriteList[i] = sprite
-            break
+            newSpriteList[i] = sprite;
+            break;
         }
     }
-    return newSpriteList
-}
+    return newSpriteList;
+};

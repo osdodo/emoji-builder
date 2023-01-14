@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import Taro from '@tarojs/taro';
 import { View, Text, Button } from '@tarojs/components';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { actionSheetState, statusBarState } from '../../store/atom';
+import { actionSheetState, statusBarState } from '@/store/atom';
 
 import './ActionSheet.css';
 import '../../iconfont.css';

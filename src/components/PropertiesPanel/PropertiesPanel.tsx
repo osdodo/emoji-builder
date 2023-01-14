@@ -7,10 +7,9 @@ import {
     isDrawingState,
     currentOperatingLayerState,
     spriteState,
-} from '../../store/atom';
-import { updateSpriteList } from '../../utils/helper';
-import { Sprite } from '../../type';
-
+} from '@/store/atom';
+import { updateSpriteList } from '@/utils/helper';
+import { Sprite } from '@/types/index';
 import './PropertiesPanel.css';
 import '../../iconfont.css';
 
@@ -31,7 +30,7 @@ const PropertiesPanel = () => {
         const currentOperatingLayer = sprite.layer;
         setCurrentOperatingLayer(currentOperatingLayer);
         setCurrentOperatingSprite(sprite);
-        setSprite((old) => {
+        setSprite(old => {
             const id = `layer${currentOperatingLayer}`;
             return {
                 ...old,
@@ -82,7 +81,7 @@ const PropertiesPanel = () => {
     );
 
     const onChangeScale = useCallback(
-        (e) => {
+        e => {
             if (!currentOperatingSprite) {
                 return;
             }
@@ -102,7 +101,7 @@ const PropertiesPanel = () => {
     );
 
     const onChangeDegrees = useCallback(
-        (e) => {
+        e => {
             if (!currentOperatingSprite) {
                 return;
             }

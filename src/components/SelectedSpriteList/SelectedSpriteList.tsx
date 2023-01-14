@@ -6,9 +6,9 @@ import {
     currentOperatingSpriteState,
     showPropertiesPanelState,
     currentOperatingLayerState,
-    isDrawingState
-} from '../../store/atom';
-import { Sprite } from '../../type';
+    isDrawingState,
+} from '@/store/atom';
+import { Sprite } from '@/types/index';
 
 import '../../iconfont.css';
 import './SelectedSpriteList.css';
@@ -21,26 +21,31 @@ const SelectedSpriteList = () => {
 
     const setShowPropertiesPanel = useSetRecoilState(showPropertiesPanelState);
     const setIsDrawing = useSetRecoilState(isDrawingState);
-    const setCurrentOperatingLayer = useSetRecoilState(currentOperatingLayerState);
-    
+    const setCurrentOperatingLayer = useSetRecoilState(
+        currentOperatingLayerState
+    );
+
     const handleOpenPropertiesPanel = useCallback((sprite: Sprite) => {
         setCurrentOperatingSprite(sprite);
         setShowPropertiesPanel(true);
     }, []);
 
-    const handleRemoveSprite = useCallback((spriteId: string, layer: number) => {
-        setSprite(old => {
-            const id = `layer${layer}`;
-            return {
-                ...old,
-                [id]: old[id].filter((item: Sprite) => {
-                    return item.id !== spriteId
-                }),
-            }
-        })
-        setCurrentOperatingLayer(layer);
-        setIsDrawing(true);
-    }, []);
+    const handleRemoveSprite = useCallback(
+        (spriteId: string, layer: number) => {
+            setSprite(old => {
+                const id = `layer${layer}`;
+                return {
+                    ...old,
+                    [id]: old[id].filter((item: Sprite) => {
+                        return item.id !== spriteId;
+                    }),
+                };
+            });
+            setCurrentOperatingLayer(layer);
+            setIsDrawing(true);
+        },
+        []
+    );
 
     const sprites = [
         ...sprite.layer1,
@@ -51,7 +56,7 @@ const SelectedSpriteList = () => {
 
     return (
         <View className="selected-sprites" id="page">
-            {sprites.map((item) => {
+            {sprites.map(item => {
                 return (
                     <View className="selected-sprites__item" key={item.id}>
                         <Image
@@ -67,7 +72,9 @@ const SelectedSpriteList = () => {
                         <Text
                             className="iconfont icon-delete"
                             style="font-size: 20px;"
-                            onClick={() => handleRemoveSprite(item.id, item.layer)}
+                            onClick={() =>
+                                handleRemoveSprite(item.id, item.layer)
+                            }
                         />
                     </View>
                 );

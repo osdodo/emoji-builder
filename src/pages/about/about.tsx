@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from '@tarojs/components';
-import Layout from '../../components/Layout/Layout';
+import Layout from '@/components/Layout/Layout';
 
 import './about.css';
 import '../../iconfont.css';

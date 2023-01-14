@@ -1,31 +1,24 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import Taro from '@tarojs/taro';
 import { View, Canvas } from '@tarojs/components';
-import SpriteList from '../../components/SpriteList/SpriteList';
-import SelectedSpriteList from '../../components/SelectedSpriteList/SelectedSpriteList';
-import PropertiesPanel from '../../components/PropertiesPanel/PropertiesPanel';
-import Layout from '../../components/Layout/Layout';
-
+import SpriteList from '@/components/SpriteList/SpriteList';
+import SelectedSpriteList from '@/components/SelectedSpriteList/SelectedSpriteList';
+import PropertiesPanel from '@/components/PropertiesPanel/PropertiesPanel';
+import Layout from '@/components/Layout/Layout';
 import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
 import {
     isDrawingState,
     statusBarState,
     currentOperatingLayerState,
     spriteState,
-} from '../../store/atom';
-
+} from '@/store/atom';
 import {
     canvasList,
     canvasW,
     drawLayerBasePrefix,
     saveLayerId,
-} from '../../config';
-import {
-    canvasToTempFilePath,
-    centralizedDraw,
-    cleanCanvas,
-    saveImageToPhotosAlbum,
-} from '../../utils/helper';
+} from '@/config/index';
+import { centralizedDraw, cleanCanvas } from '@/utils/helper';
 
 import { AtActivityIndicator } from 'taro-ui';
 import 'taro-ui/dist/style/components/activity-indicator.scss';
@@ -43,15 +36,13 @@ const Index = () => {
     const sprite = useRecoilValue(spriteState);
 
     useEffect(() => {
-        Taro.getSystemInfo({
-            success: (res) => {
-                setStatusBar({
-                    statusBarHeight: res.statusBarHeight,
-                });
-                setLoading(false);
-            },
-            fail: () => {},
-        });
+        const { statusBarHeight } = Taro.getSystemInfoSync();
+        if (statusBarHeight) {
+            setStatusBar({
+                statusBarHeight,
+            });
+            setLoading(false);
+        }
     }, []);
 
     useEffect(() => {
@@ -65,7 +56,7 @@ const Index = () => {
         }
     }, [isDrawing, currentOperatingLayer, sprite]);
 
-    const handleClickSave = useCallback(() => {
+    const handleClickSave = useCallback(async () => {
         setLoading(true);
 
         const ctx = Taro.createCanvasContext(saveLayerId);
@@ -76,27 +67,37 @@ const Index = () => {
             ...sprite.layer4,
         ]);
 
-        canvasToTempFilePath(saveLayerId)
-            .then((tempFilePath: string) =>
-                saveImageToPhotosAlbum(tempFilePath)
-            )
-            .then(() => {
-                cleanCanvas(saveLayerId);
-                setLoading(false);
-                Taro.showToast({
-                    title: '已保存至相册',
-                    icon: 'success',
-                    duration: 3000,
-                });
-            })
-            .catch(() => {
-                setLoading(false);
-                Taro.showToast({
-                    title: '保存失败',
-                    icon: 'error',
-                    duration: 3000,
-                });
+        try {
+            const { tempFilePath } = await Taro.canvasToTempFilePath({
+                canvasId: saveLayerId,
             });
+            await Taro.saveImageToPhotosAlbum({
+                filePath: tempFilePath,
+            });
+            cleanCanvas(saveLayerId);
+            setLoading(false);
+            Taro.showToast({
+                title: '已保存至相册',
+                icon: 'success',
+                duration: 3000,
+            });
+        } catch (error) {
+            if (error.errMsg.indexOf('auth') != -1) {
+                const tip = await Taro.showModal({
+                    content: '❗同意访问您的相册，才能保存图片',
+                    showCancel: false,
+                });
+                if (tip.confirm) {
+                    Taro.openSetting();
+                }
+            } else {
+                Taro.showToast({
+                    title: '❌保存失败，请重试',
+                    icon: 'none',
+                    duration: 2000,
+                });
+            }
+        }
     }, [sprite]);
 
     return (
@@ -104,7 +105,7 @@ const Index = () => {
             <View>
                 <View className="top">
                     <View className="canvas-container">
-                        {canvasList.map((item) => (
+                        {canvasList.map(item => (
                             <Canvas
                                 key={item.canvasId}
                                 canvasId={item.canvasId}

@@ -56,7 +56,20 @@ const config = {
   },
 };
 
+const path = require('path');
+
 module.exports = function (merge) {
+  config.alias = {
+    '@/components': path.resolve(__dirname, '..', 'src/components'),
+    '@/constant': path.resolve(__dirname, '..', 'src/constant'),
+    '@/services': path.resolve(__dirname, '..', 'src/services'),
+    '@/store': path.resolve(__dirname, '..', 'src/store'),
+    '@/utils': path.resolve(__dirname, '..', 'src/utils'),
+    '@/config': path.resolve(__dirname, '..', 'src/config'),
+    '@/types': path.resolve(__dirname, '..', 'src/types'),
+    '@/package': path.resolve(__dirname, '..', 'package.json'),
+    '@/project': path.resolve(__dirname, '..', 'project.config.json'),
+  };
   if (process.env.NODE_ENV === "development") {
     return merge({}, config, require("./dev"));
   }
